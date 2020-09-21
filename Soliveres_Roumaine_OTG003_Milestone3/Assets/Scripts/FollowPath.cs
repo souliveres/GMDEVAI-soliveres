@@ -9,6 +9,8 @@ public class FollowPath : MonoBehaviour
     float accuracy = 1.0f;
     float rotSpeed = 2.0f;
 
+    Rigidbody rb;
+
     public GameObject wpManager;
     GameObject[] wps;
     GameObject currentNode;
@@ -20,6 +22,7 @@ public class FollowPath : MonoBehaviour
         wps = wpManager.GetComponent<WaypointManager>().waypoints;
         graph = wpManager.GetComponent<WaypointManager>().graph;
         currentNode = wps[0];
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -51,6 +54,14 @@ public class FollowPath : MonoBehaviour
                                                         Time.deltaTime * rotSpeed);
             this.transform.Translate(0, 0, speed * Time.deltaTime);
 
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        if(other.tag == "Tank")
+        {
+            Debug.Log("Collided with something!");
         }
     }
 
