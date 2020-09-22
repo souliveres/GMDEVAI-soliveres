@@ -67,31 +67,31 @@ public class FollowPath : MonoBehaviour
 
     public void GoToHelipad()
     {
-        graph.AStar(currentNode, wps[0]);
+        graph.AStar(currentNode, wps[1]);
         currentWaypointIndex = 0;
     }
 
     public void GoToRuins()
     {
-        graph.AStar(currentNode, wps[8]);
+        graph.AStar(currentNode, wps[9]);
         currentWaypointIndex = 0;
     }
 
     public void GoToFactory()
     {
-        graph.AStar(currentNode, wps[13]);
+        graph.AStar(currentNode, wps[14]);
         currentWaypointIndex = 0;
     }
 
     public void GoToTwinMountains()
     {
-        graph.AStar(currentNode, wps[2]);
+        graph.AStar(currentNode, wps[3]);
         currentWaypointIndex = 0;
     }
 
     public void GoToBarracks()
     {
-        graph.AStar(currentNode, wps[4]);
+        graph.AStar(currentNode, wps[5]);
         currentWaypointIndex = 0;
     }
 
@@ -103,31 +103,31 @@ public class FollowPath : MonoBehaviour
 
     public void GoToOilRefineryPumps()
     {
-        graph.AStar(currentNode, wps[7]);
+        graph.AStar(currentNode, wps[8]);
         currentWaypointIndex = 0;
     }
 
     public void GoToTankers()
     {
-        graph.AStar(currentNode, wps[11]);
+        graph.AStar(currentNode, wps[12]);
         currentWaypointIndex = 0;
     }
 
     public void GoToRadar()
     {
-        graph.AStar(currentNode, wps[9]);
+        graph.AStar(currentNode, wps[11]);
         currentWaypointIndex = 0;
     }
 
     public void GoToCommandPost()
     {
-        graph.AStar(currentNode, wps[3]);
+        graph.AStar(currentNode, wps[4]);
         currentWaypointIndex = 0;
     }
 
     public void GoToMiddleOfMap()
     {
-        graph.AStar(currentNode, wps[5]);
+        graph.AStar(currentNode, wps[8]);
         currentWaypointIndex = 0;
     }
 }
