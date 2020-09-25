@@ -5,9 +5,9 @@ using UnityEngine;
 public class FollowPath : MonoBehaviour
 {
     Transform goal;
-    float speed = 5.0f;
+    public float speed = 5.0f;
     float accuracy = 1.0f;
-    float rotSpeed = 2.0f;
+    public float rotSpeed = 2.0f;
 
     Rigidbody rb;
 
@@ -127,7 +127,7 @@ public class FollowPath : MonoBehaviour
 
     public void GoToMiddleOfMap()
     {
-        graph.AStar(currentNode, wps[8]);
+        graph.AStar(currentNode, wps[6]);
         currentWaypointIndex = 0;
     }
 }

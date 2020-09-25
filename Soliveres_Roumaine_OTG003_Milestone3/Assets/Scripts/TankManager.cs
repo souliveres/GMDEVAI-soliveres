@@ -7,17 +7,30 @@ public class TankManager : MonoBehaviour
     public GameObject GreenTank;
     public GameObject RedTank;
     public GameObject BlueTank;
+
+    FollowPath followPath;
+
+    void Start() 
+    {
+        followPath = GetComponent<FollowPath>();
+    }
     
     public void EnableGreenTank()
     {
-        GreenTank.SetActive(!GreenTank.activeSelf);
+        followPath.speed = 0f;
+        followPath.rotSpeed = 0f;
+        //GreenTank.SetActive(!GreenTank.activeSelf);
     }
     public void EnableRedTank()
     {
-        RedTank.SetActive(!RedTank.activeSelf);
+        followPath.speed = 0f;
+        followPath.rotSpeed = 0f;
+        //RedTank.SetActive(!RedTank.activeSelf);
     }
     public void EnableBlueTank()
     {
-        BlueTank.SetActive(!BlueTank.activeSelf);
+        followPath.speed = 0f;
+        followPath.rotSpeed = 0f;
+        //BlueTank.SetActive(!BlueTank.activeSelf);
     }
 }
