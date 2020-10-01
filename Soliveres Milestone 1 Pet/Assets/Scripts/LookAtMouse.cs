@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class LookAtMouse : MonoBehaviour
 {
-    float rotSpeed = 3;
+    public float mouseSensitivity = 100f;
+
+    public Transform playerBody;
+
+    float xRotation = 0f;
     
     // Start is called before the first frame update
     void Start()
@@ -15,15 +19,14 @@ public class LookAtMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 lookAtMouse = new Vector3(Input.mousePosition.x,
-                                        this.transform.position.y,
-                                        Input.mousePosition.z);
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        Vector3 direction = lookAtMouse - transform.position;
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, 
-                                                Quaternion.LookRotation(direction),
-                                                Time.deltaTime * rotSpeed);
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        playerBody.Rotate(Vector3.up * mouseX);
 
     }
 }
