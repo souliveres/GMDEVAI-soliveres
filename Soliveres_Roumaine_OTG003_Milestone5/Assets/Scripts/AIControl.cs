@@ -33,7 +33,7 @@ public class AIControl : MonoBehaviour
                     CleverHide();
                     break;
                 case 3:
-                    Evade();    // 0285886831 (Wack-wack branch)
+                    Evade();    
                     break;
                 default:
                     break;
@@ -145,5 +145,5 @@ public class AIControl : MonoBehaviour
         hideCol.Raycast(back, out info, rayDistance);
 
         Seek(info.point + chosenDir.normalized * 5);
-    } //0285348794
+    } 
 }
