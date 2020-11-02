@@ -21,45 +21,97 @@ public class AIControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(canSeeTarget())
+        switch(aiID)
         {
-            Debug.Log("AI " + aiID + " can see you!");
-            switch(aiID)
-            {
-                case 1:
-                    Pursuit();
-                    break;
-                case 2:
-                    CleverHide();
-                    break;
-                case 3:
-                    Evade();    
-                    break;
-                default:
-                    break;
-            }
+            case 1:
+                DoAgent1Simulation();
+                break;
+            case 2:
+                DoAgent2Simulation();
+                break;
+            case 3:
+                DoAgent3Simulation();
+                break;
+            default:
+                break;
         }
-        else
-        {
-            Wander();
-        }
+        // if(canSeeTarget())
+        // {
+        //     Debug.Log("AI " + aiID + " can see you!");
+        //     switch(aiID)
+        //     {
+        //         case 1:
+        //             Pursuit();
+        //             break;
+        //         case 2:
+        //             CleverHide();
+        //             break;
+        //         case 3:
+        //             Evade();    
+        //             break;
+        //         default:
+        //             break;
+        //     }
     }
 
-    bool canSeeTarget()
+    /*
+        Use a switch case inside update that includes a specific functional behavior for each agent
+        e.g. 
+        switch(id)
+            case 1: 
+                DoAgent1Simulation();
+                break;
+            ....
+
+        DoAgent1Simulation()
+        {
+            if(canSeeTarget())
+                ...
+        }
+
+        bool IsWithinRange(Vec3 target, float maxDist)
+        {
+            // Find the distance between yourself and target 
+            // Check if it's less than your specified maxDist/ range
+            return Vector3.Distance(target, this.transform.position) < maxDist;
+            
+        if(Vector3.Distance(target, this.transform.position) <= range)
+        { 
+            return Vector3.Distance(target, this.transform.position) <= range;
+        }
+    */
+
+    bool canSeeTarget(float maxDist)
+    {
+        RaycastHit raycastInfo;
+        
+        Vector3 rayForward = this.transform.TransformDirection(Vector3.forward) * maxDist;
+
+        if(Physics.Raycast(this.transform.position, rayForward, out raycastInfo))
+        {
+            if(raycastInfo.distance <= maxDist)
+            {
+                Debug.DrawRay(this.transform.position, rayForward, Color.yellow);
+                return raycastInfo.transform.gameObject.tag == "Player";
+            }
+            
+        }
+
+        return false;
+    }
+
+    bool IsTargetInRange(float maxDist)
     {
         RaycastHit raycastInfo;
         Vector3 rayToTarget = target.transform.position - this.transform.position;
-        
-        Vector3 rayForward = this.transform.TransformDirection(Vector3.forward) * range;
 
         if(Physics.Raycast(this.transform.position, rayToTarget, out raycastInfo))
         {
-            if(raycastInfo.distance <= range)
+            if(raycastInfo.distance <= maxDist)
             {
                 Debug.DrawRay(this.transform.position, rayToTarget, Color.blue);
                 return raycastInfo.transform.gameObject.tag == "Player";
             }
-            
         }
 
         return false;
@@ -145,5 +197,41 @@ public class AIControl : MonoBehaviour
         hideCol.Raycast(back, out info, rayDistance);
 
         Seek(info.point + chosenDir.normalized * 5);
+    }
+
+    void DoAgent1Simulation()
+    {
+        if(IsTargetInRange(range))
+        {
+            Pursuit();
+        }
+        else
+        {
+            Wander();
+        }
+    }
+
+    void DoAgent2Simulation()
+    {
+        if(IsTargetInRange(range) && canSeeTarget(range))
+        {
+            CleverHide();
+        }
+        else
+        {
+            Wander();
+        }
+    }
+
+    void DoAgent3Simulation()
+    {
+        if(IsTargetInRange(range))
+        {
+            Evade();
+        }
+        else
+        {
+            Wander();
+        }
     } 
 }
